@@ -6,10 +6,10 @@ from database.schema.schema import list_serial
 from bson import ObjectId
 from jose import JWTError, jwt
 from datetime import datetime, timedelta,timezone
-from fastapi.security import OAuth2PasswordBearer
-router=APIRouter()
 from passlib.context import CryptContext
 import os
+router=APIRouter()
+
 
 secret_key = os.getenv('SECRET_KEY')
 ALGORITHM = "HS256"
