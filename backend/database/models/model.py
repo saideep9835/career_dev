@@ -28,6 +28,6 @@ class User(BaseModel):
         return value
 
 class Login(BaseModel):
-    email: str
-    password: str
+    email: EmailStr
+    password: constr(min_length=8, max_length=30)
  
