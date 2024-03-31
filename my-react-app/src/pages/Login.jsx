@@ -51,6 +51,7 @@ export default function SignIn() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
         try {
             const api_post = api(); 
             const response = await api_post.post('/login', { email, password });
@@ -58,8 +59,9 @@ export default function SignIn() {
             navigate('/profile');
         } catch (error) {
             console.error(error);
-            alert('Login failed');
+            alert('Login failed, please try again');
         }
+      
     };
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -85,7 +87,7 @@ export default function SignIn() {
           </Typography>
           
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
+            <TextField 
               margin="normal"
               required
               fullWidth

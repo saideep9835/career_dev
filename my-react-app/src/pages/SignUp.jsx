@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { Alert } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -52,25 +53,36 @@ export default function SignUp() {
     let isValid = true;
     let errors = {};
     console.log(formData.firstName)
-    if (!formData.firstName.match(/^[a-zA-Z ]+$/)) {
-        errors.firstName = 'First name must contain only alphabets and spaces';
-        isValid = false;
-    }
+    if (formData.firstName.trim() === '') {
+      errors.firstName = 'First name is required';
+      isValid = false;
+    }else if (!formData.firstName.match(/^[a-zA-Z ]+$/)) {
+      errors.firstName = 'First name must contain only alphabets and spaces';
+      isValid = false;
+  }
 
-    if (!formData.lastName.match(/^[a-zA-Z ]+$/)) {
-        errors.lastName = 'Last name must contain only alphabets and spaces';
-        isValid = false;
-    }
-
-    if (!formData.email.match(/\S+@\S+\.\S+/)) {
+  if (formData.lastName.trim() === '') {
+    errors.lastName = 'Last name is required';
+    isValid = false;
+} else if (!formData.lastName.match(/^[a-zA-Z ]+$/)) {
+    errors.lastName = 'Last name must contain only alphabets and spaces';
+    isValid = false;
+}
+if (formData.email.trim() === '') {
+  errors.email = 'Email is required';
+  isValid = false;
+}else if (!formData.email.match(/\S+@\S+\.\S+/)) {
         errors.email = 'Invalid email format';
         isValid = false;
     }
-
-    if (formData.password.length < 8 || !formData.password.match(/[a-zA-Z]/) || !formData.password.match(/[0-9]/) || !formData.password.match(/[!@#$%^&*(),.?":{}|<>]/)) {
-        errors.password = 'Password must be at least 8 characters long and contain at least one alphabet, one number, and one special character';
-        isValid = false;
-    }
+    
+    if (formData.password.trim() === '') {
+      errors.password = 'Password is required';
+      isValid = false;
+  } else if (formData.password.length < 8 || !formData.password.match(/[a-zA-Z]/) || !formData.password.match(/[0-9]/) || !formData.password.match(/[!@#$%^&*(),.?":{}|<>]/)) {
+      errors.password = 'Password must be at least 8 characters long and contain at least one alphabet, one number, and one special character';
+      isValid = false;
+  }
 
     setErrors(errors);
     return isValid;
@@ -90,10 +102,9 @@ export default function SignUp() {
       alert('SignUp failed');
     }
     
-  }else{
-    
-    alert('SignUp failed');
-  }setFormData(initialFormData);
+  }
+ 
+  setFormData(initialFormData);
 
   };
     // console.log({
@@ -114,7 +125,7 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-         {responseMessage? <Typography variant="body2" color="error">{responseMessage}</Typography> : null}
+         {/* {responseMessage? <Typography variant="body2" color="error">{responseMessage}</Typography> : null} */}
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           
           </Avatar>
@@ -135,7 +146,9 @@ export default function SignUp() {
                   label="First Name"
                   autoFocus
                 />
-                {errors.firstName && <div>{errors.firstName}</div>}
+                {errors.firstName && <div><Alert variant="filled" severity="error" sx={{ mb: 2 }}>
+                {errors.firstName}
+    </Alert></div>}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -148,8 +161,11 @@ export default function SignUp() {
                   onChange={handleChange} 
                   autoComplete="family-name"
                 />
+                {errors.lastName && <div><Alert variant="filled" severity="error" sx={{ mb: 2}}>
+                    {errors.lastName}
+              </Alert></div>}
               </Grid>
-              {errors.lastName && <div>{errors.lastName}</div>}
+              
               <Grid item xs={12}>
                 <TextField
                   required
@@ -161,7 +177,9 @@ export default function SignUp() {
                   onChange={handleChange}
                   autoComplete="email"
                 />
-                 {errors.email && <div>{errors.email}</div>}
+                 {errors.email && <div><Alert variant="filled" severity="error" sx={{ mb: 2 }}>
+                  {errors.email}
+                </Alert></div>}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -176,14 +194,16 @@ export default function SignUp() {
                   onChange={handleChange}
                   autoComplete="new-password"
                 />
-                {errors.password && <div>{errors.password}</div>}
+                {errors.password && <div><Alert variant="filled" severity="error" sx={{ mb: 2 }}>
+                    {errors.password}
+                </Alert></div>}
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={<Checkbox value="allowExtraEmails" color="primary" />}
+                    label="Remember Me"
+                  />
+                </Grid>
             </Grid>
             <Button
               type="submit"

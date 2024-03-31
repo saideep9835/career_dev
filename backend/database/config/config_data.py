@@ -1,5 +1,4 @@
 from dotenv import load_dotenv
-
 import os
 from pymongo.mongo_client import MongoClient
 import pymongo
@@ -10,6 +9,7 @@ import urllib
 load_dotenv()# Load environment variables from .env file
 
 password= os.getenv('PASSWORD')
+
 try:
     client = MongoClient(f"mongodb+srv://saideep:{password}@careerapp.0q3injz.mongodb.net/?retryWrites=true&w=majority&appName=CareerApp")
 except pymongo.errors.ConfigurationError:

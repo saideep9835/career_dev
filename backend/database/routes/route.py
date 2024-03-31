@@ -6,14 +6,14 @@ from database.schema.schema import list_serial
 from bson import ObjectId
 from jose import JWTError, jwt
 from datetime import datetime, timedelta,timezone
-from fastapi.security import OAuth2PasswordBearer
-router=APIRouter()
 from passlib.context import CryptContext
 import os
+router=APIRouter()
+
 
 secret_key = os.getenv('SECRET_KEY')
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 1
+ACCESS_TOKEN_EXPIRE_MINUTES = 250
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def verify_password(plain_password, hashed_password):
