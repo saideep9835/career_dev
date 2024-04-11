@@ -1,20 +1,23 @@
 from fastapi import APIRouter, HTTPException, Depends,status,Request
 from database.models.model import User
-from database.models.model import Login
+from database.models.model import Login,Question
 from database.config.config_data import collection_name
 from database.schema.schema import list_serial
 from bson import ObjectId
 from jose import JWTError, jwt
 from datetime import datetime, timedelta,timezone
 from passlib.context import CryptContext
+from openai import OpenAI
 import os
 router=APIRouter()
 
 
 secret_key = os.getenv('SECRET_KEY')
+api = os.getenv('API_KEY')
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 250
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+client = OpenAI(api_key=api)
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
@@ -85,3 +88,19 @@ async def protected_route(request: Request):
         return {"message": f"Welcome, {user_email}!"}
     except JWTError:
         raise HTTPException(status_code=401, detail="Not authenticated")
+@router.post("/get_answer")
+async def get_answer(question: Question):
+    # print(f"Question: {question.question}")
+    if question.question == "":
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": question.question},
+        ],
+        max_tokens=50
+    )
+    if response.choices[0].message.content is None:
+        raise HTTPException(status_code=402, detail = "You must provide a question.")
+    return {"answer": response.choices[0].message.content}

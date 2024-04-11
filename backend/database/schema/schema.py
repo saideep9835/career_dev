@@ -10,3 +10,4 @@ def individual_serial(user) -> dict:
 def list_serial(users) -> list:
     return [individual_serial(user) for user in users]
 
+

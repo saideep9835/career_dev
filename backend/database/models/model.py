@@ -30,4 +30,5 @@ class User(BaseModel):
 class Login(BaseModel):
     email: EmailStr
     password: constr(min_length=8, max_length=30)
- 
+class Question(BaseModel):
+    question: str

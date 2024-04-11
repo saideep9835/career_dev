@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import React, { useEffect,useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
-import useAuth from "./Auth";
+import useAuth from "../pages/Auth";
 import api from "../api";
 import {Box, Button, Grid, TextField, Typography,Paper,Menu,MenuItem,List,ListItemIcon,ListItem,ListItemButton,ListItemText} from '@mui/material';
 import MuiDrawer from '@mui/material/Drawer';
@@ -12,8 +12,6 @@ import SendIcon from '@mui/icons-material/Send';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-
-
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -81,30 +79,15 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-
-export default function Profile() {
+export default function MenuSearch() {
+  useAuth();
   const theme = useTheme();
   const navigate = useNavigate();
+
   const [userData, setUserData] = useState(null);
   const [open, setOpen] = React.useState(false);
   const [textFieldValue, setTextFieldValue] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
-
-  useAuth(); // Get the token from the hook
-  useEffect(() => {
-    const api_get = api();
-    const fetchData = async () => {
-      try {
-        
-          const response = await api_get.get('/protected');
-          setUserData(response.data);
-          console.log(response.data);
-      } catch (error) {
-          console.error(error);
-      }
-  };
-  fetchData();
-  },[])
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -113,10 +96,10 @@ export default function Profile() {
     setOpen(false);
   };
   const menuItems = [
-    { text: 'After 10th', path: '/profile/afterTenth' },
-    { text: 'After HighSchool', path: '/profile/after-highschool' },
-    { text: 'After Bachelors', path: '/profile/after-bachelors' },
-    { text: 'Masters', path: '/profile/masters' }
+    { text: 'After 10th', path: '/afterTenth' },
+    { text: 'After HighSchool', path: '/after-highschool' },
+    { text: 'After Bachelors', path: '/after-bachelors' },
+    { text: 'Masters', path: '/masters' }
   ];
   const handleClick = async () => {
     const data = {
@@ -141,15 +124,13 @@ export default function Profile() {
       // Handle errors
     }
   };
-  
   const signOut = () => {
     localStorage.removeItem("desologinkey");
     navigate("/");
   };
-
   return (
     <>
-      <AppBar position="fixed" open={open}>
+       <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
             size="large"
@@ -232,5 +213,6 @@ export default function Profile() {
         </Grid>
       </Box>
     </>
-  );
+  )
 }
+
