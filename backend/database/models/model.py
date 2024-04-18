@@ -32,3 +32,12 @@ class Login(BaseModel):
     password: constr(min_length=8, max_length=30)
 class Question(BaseModel):
     question: str
+
+class Call(BaseModel):
+    name: str
+    email: EmailStr
+    mobilenumber: str
+    description: str = None
+    date: str = None
+class Update_Call(BaseModel):
+    name: Optional[str]
