@@ -6,7 +6,7 @@ import {Typography, Box} from '@mui/material';
 import {useState,useEffect} from'react';
 import { useNavigate } from "react-router";
 import api from '../api';
-
+import Nav from '../components/Nav';
 import {jwtDecode} from 'jwt-decode';
 function Copyright(props) {
   return (
@@ -64,7 +64,9 @@ export default function SignIn() {
       
     };
   return (
+    
     <ThemeProvider theme={defaultTheme}>
+      <Nav/>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
   
@@ -83,7 +85,7 @@ export default function SignIn() {
           </Avatar>
           
           <Typography component="h1" variant="h5">
-            Sign in
+            Login
           </Typography>
           
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -113,10 +115,10 @@ export default function SignIn() {
               
               autoComplete="current-password"
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
             <Button
               type="submit"
               fullWidth
@@ -127,9 +129,9 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                {/* <Link href="#" variant="body2">
                   Forgot password?
-                </Link>
+                </Link> */}
               </Grid>
               <Grid item>
                 <Link href="/SignUp" variant="body2">

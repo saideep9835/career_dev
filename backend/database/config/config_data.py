@@ -19,3 +19,5 @@ except pymongo.errors.ConfigurationError:
 db = client.userdata
 
 collection_name = db["userprofiles"]
+
+guidance = db["userguidance"]

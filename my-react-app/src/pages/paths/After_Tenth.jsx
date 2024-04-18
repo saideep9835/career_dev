@@ -1,5 +1,5 @@
 import React from 'react'
-import MenuSearch from '../components/MenuSearch'
+import MenuSearch from '../../components/MenuSearch'
 function After_Tenth() {
   return (
     <MenuSearch/>

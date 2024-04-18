@@ -96,10 +96,10 @@ export default function MenuSearch() {
     setOpen(false);
   };
   const menuItems = [
-    { text: 'After 10th', path: '/afterTenth' },
-    { text: 'After HighSchool', path: '/after-highschool' },
-    { text: 'After Bachelors', path: '/after-bachelors' },
-    { text: 'Masters', path: '/masters' }
+    { text: 'After 10th', path: '/profile/paths/afterTenth' },
+    { text: 'After HighSchool', path: '/profile/after-highschool' },
+    { text: 'After Bachelors', path: '/profile/after-bachelors' },
+    { text: 'Schedule-A-Call with expert', path: '/profile/paths/callschedule' }
   ];
   const handleClick = async () => {
     const data = {

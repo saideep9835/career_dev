@@ -17,6 +17,7 @@ import { useNavigate } from "react-router";
 import login from './Login'
 import api from '../api';
 import { jwtDecode } from 'jwt-decode';
+import Nav from '../components/Nav';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -115,6 +116,7 @@ if (formData.email.trim() === '') {
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      <Nav/>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -130,7 +132,7 @@ if (formData.email.trim() === '') {
           
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Sign Up
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -198,12 +200,12 @@ if (formData.email.trim() === '') {
                     {errors.password}
                 </Alert></div>}
               </Grid>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                   <FormControlLabel
                     control={<Checkbox value="allowExtraEmails" color="primary" />}
                     label="Remember Me"
                   />
-                </Grid>
+                </Grid> */}
             </Grid>
             <Button
               type="submit"

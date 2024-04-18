@@ -9,7 +9,8 @@ import Login from './pages/Login';
 // import SignUp from './pages/SignUp';
 import { Route, Routes } from 'react-router-dom';
 import Profile from './pages/Profile';
-import After_Tenth from './pages/After_Tenth';
+import After_Tenth from './pages/paths/After_Tenth';
+import CallSchedule from './pages/paths/CallSchedule';
 // import { RequireToken } from './pages/Auth';
 
 const Home = lazy(() => import ('./pages/Home'));
@@ -47,7 +48,8 @@ function App() {
           <Route path="/why" element={<Why/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/profile/afterTenth" element={<After_Tenth/>} />
+          <Route path="/profile/paths/afterTenth" element={<After_Tenth/>} />
+          <Route path="/profile/paths/callschedule" element={<CallSchedule/>} />
           <Route path="/" element={<Login />} /> // Redirect to login page by default
           <Route path="/signup" element={<SignUp/>} />
         </Routes>
