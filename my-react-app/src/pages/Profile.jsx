@@ -114,7 +114,7 @@ export default function Profile() {
   };
   const menuItems = [
     { text: 'After 10th', path: '/profile/paths/afterTenth' },
-    { text: 'After HighSchool', path: '/profile/after-highschool' },
+    { text: 'AI search box', path: '/profile/paths/AI-search' },
     { text: 'After Bachelors', path: '/profile/after-bachelors' },
     { text: 'Schedule-A-Call with expert', path: '/profile/paths/callschedule' }
   ];

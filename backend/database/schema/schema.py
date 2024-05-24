@@ -22,3 +22,11 @@ def individual_schedule(user) -> dict:
     }
 def list_user_schedule(users) -> list:
     return [individual_schedule(user) for user in users]
+
+def serializeDict(a) -> dict:
+    return {
+        'id': str(a["_id"]),
+        'data': a["data"]
+    }
+def serializeList(entity) -> list:
+    return [serializeDict(a) for a in entity]

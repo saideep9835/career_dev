@@ -1,6 +1,6 @@
-from pydantic import BaseModel,validator,EmailStr,constr
+from pydantic import BaseModel,validator,EmailStr,constr,Field
 from datetime import datetime
-from typing import Optional
+from typing import Optional,Dict, Any
 import re
 
 class User(BaseModel):
@@ -41,3 +41,7 @@ class Call(BaseModel):
     date: str = None
 class Update_Call(BaseModel):
     name: Optional[str]
+class CareerPath(BaseModel):
+    id: Optional[str] = Field(None, alias="_id")
+    core_data: Dict[str, Any]
+    metadata: Optional[Dict[str, Any]] = {}

@@ -1,0 +1,22 @@
+{
+"data" : [
+    {
+    "career_name": "Software Engineering",
+    "description": "Software engineering is the",
+    "educational_requirements": [
+        "Bachelor’s degree in Computer ",
+        "Master's degree for"
+    ],
+    "skills_required": [
+        "Strong analytical ",
+        "Proficiency in programming",
+        "Understanding of software",
+        "Experience with ",
+        "Ability to work in a"
+    ]
+    
+    
+   
+}
+]
+}

@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import useAuth from "../pages/Auth";
 import api from "../api";
-import { Box, Button, Grid, TextField, Typography, Paper, Menu, MenuItem, List, ListItemIcon, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import {Box, Button, Grid, TextField, Typography,Paper,Menu,MenuItem,List,ListItemIcon,ListItem,ListItemButton,ListItemText} from '@mui/material';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -12,7 +12,6 @@ import SendIcon from '@mui/icons-material/Send';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -80,16 +79,15 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MenuSearch() {
+export default function MenuWithoutAI() {
   useAuth();
   const theme = useTheme();
   const navigate = useNavigate();
 
   const [userData, setUserData] = useState(null);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = React.useState(false);
   const [textFieldValue, setTextFieldValue] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -97,40 +95,20 @@ export default function MenuSearch() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
   const menuItems = [
     { text: 'After 10th', path: '/profile/paths/afterTenth' },
     { text: 'AI search box', path: '/profile/paths/AI-search' },
     { text: 'After Bachelors', path: '/profile/after-bachelors' },
     { text: 'Schedule-A-Call with expert', path: '/profile/paths/callschedule' }
   ];
-
-  const handleClick = async () => {
-    const data = {
-      question: textFieldValue,
-      // Add other data you want to send
-    };
-    console.log(data.question);
-    const api_get = api();
-
-    try {
-      const response = await api_get.post('/get_answer', data);
-      const result = await response.data.answer;
-      setResponseMessage(result);
-      console.log('Success:', result);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
+  
   const signOut = () => {
     localStorage.removeItem("desologinkey");
     navigate("/");
   };
-
   return (
     <>
-      <AppBar position="fixed" open={open}>
+       <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
             size="large"
@@ -142,6 +120,7 @@ export default function MenuSearch() {
           >
             <MenuIcon />
           </IconButton>
+          
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Career Map
           </Typography>
@@ -155,6 +134,7 @@ export default function MenuSearch() {
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
+        
         <List>
           {menuItems.map((item) => (
             <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
@@ -166,13 +146,17 @@ export default function MenuSearch() {
                 }}
                 onClick={() => navigate(item.path)}
               >
+
+                
                 <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
+        
+        
       </Drawer>
-      <Box sx={{ mt: 3, flexGrow: 1, minHeight: 700, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      {/* <Box sx={{ mt: 3, flexGrow: 1, minHeight: 700, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Box
           component="form"
           sx={{
@@ -184,27 +168,11 @@ export default function MenuSearch() {
           noValidate
           autoComplete="off"
         >
-          <TextField
-            id="outlined-basic"
-            label="This is an AI search box"
-            variant="outlined"
-            sx={{ width: '45ch', height: '56px' }}
-            value={textFieldValue}
-            onChange={(e) => setTextFieldValue(e.target.value)}
-          />
-          <Button variant="contained" endIcon={<SendIcon />} onClick={handleClick} size="large">Send</Button>
+          
         </Box>
         
-        {responseMessage && (
-          <Grid container justifyContent="space-evenly">
-            <Grid item xs={6} md={4}>
-              <Typography variant="body1" sx={{ mt: 2, textAlign: 'center' }}>
-                {responseMessage}
-              </Typography>
-            </Grid>
-          </Grid>
-        )}
-      </Box>
+      </Box> */}
     </>
-  );
+  )
 }
+
