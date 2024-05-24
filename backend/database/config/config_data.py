@@ -21,3 +21,5 @@ db = client.userdata
 collection_name = db["userprofiles"]
 
 guidance = db["userguidance"]
+
+json_data = db['jsonfiles']

@@ -1,15 +1,18 @@
-from fastapi import APIRouter, HTTPException, Depends,status,Request
+from fastapi import APIRouter, HTTPException, Depends,status,Request, UploadFile,File
 from database.models.model import User
-from database.models.model import Login,Question,Call,Update_Call
-from database.config.config_data import collection_name,guidance
-from database.schema.schema import list_serial,list_user_schedule
+from database.models.model import Login,Question,Call,Update_Call, CareerPath
+from database.config.config_data import collection_name,guidance,json_data
+from database.schema.schema import list_serial,list_user_schedule,serializeList
 from bson import ObjectId
 from jose import JWTError, jwt
 from datetime import datetime, timedelta,timezone
 from passlib.context import CryptContext
 from openai import OpenAI
 import os
+from bson import json_util
+import motor.motor_asyncio
 from typing import List, Dict
+import json
 router=APIRouter()
 
 
@@ -138,3 +141,33 @@ async def update_schedules(name:str,updateData:Update_Call):
             return {'message':"not updated schedule"}
     else:
         raise HTTPException(status_code=404, detail="No schedules found")
+
+@router.post("/upload-json/")
+async def upload_json_file(file: UploadFile = File(...)):
+    if file.content_type != 'application/json':
+        raise HTTPException(status_code=400, detail="Invalid file type")
+
+    # Read and load the JSON data from the file
+    data = await file.read()
+    try:
+        json_data_now = json.loads(data)
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=400, detail="Invalid JSON")
+ 
+    # Insert the JSON data into MongoDB
+    result = json_data.insert_one(json_data_now)
+    if result.acknowledged:
+        return {"mongo_id": str(result.inserted_id)}
+    else:
+        raise HTTPException(status_code=500, detail="Failed to insert data into MongoDB")
+@router.get('/data/',response_model=List[dict])
+
+async def get_json_data():
+    try:
+        career_list = serializeList(json_data.find())
+        if career_list:
+            return career_list  # Directly return the list
+        else:
+            raise HTTPException(status_code=404, detail="No data found")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
